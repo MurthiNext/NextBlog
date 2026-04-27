@@ -43,7 +43,7 @@
 }
 .subnav-search-input {
     width: 160px;
-    height: 36px;
+    height: 32px;
     border-radius: 10px 0 0 10px;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
@@ -115,6 +115,7 @@
     }
     .subnav-search { width: auto; }
     .subnav-search-input { width: 120px; }
+    .subnav-search button { height: 34px; }
 }
 
 @media (hover: hover) {
@@ -123,6 +124,9 @@
         box-shadow: var(--shadow-md);
         transform: scale(1.08);
         color: var(--text-primary);
+    }
+    [data-color-mode="dark"] .title-right .circle:hover {
+        border-color: #484f58;
     }
     .lists .SideNav-item:hover {
         background: var(--bg-card);
@@ -134,9 +138,6 @@
         transform: translateY(-1px);
         box-shadow: var(--shadow-md);
     }
-}
-[data-color-mode="dark"] .title-right .circle:hover {
-    border-color: #484f58;
 }
 
 @media (hover: none) {
