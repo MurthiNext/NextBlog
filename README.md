@@ -1,8 +1,8 @@
 # Next-Blog
+## 此项目仍在测试，不保证可用性，请候正式版发布后再使用。
 ### Powered by [Gmeek](https://github.com/Meekdai/Gmeek)
 
 基于Gmeek的博客系统，使用`Github Pages` + `Github Issues` + `Github Actions` 快速搭建个人博客。
-此项目仍在维护当中。
 
 ### 快速开始
 
