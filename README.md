@@ -1,4 +1,4 @@
-# Next-Blog
+# Next-Blog BETA-DEV
 ## 此项目仍在测试，不保证可用性，请候正式版发布后再使用。
 ### Powered by [Gmeek](https://github.com/Meekdai/Gmeek)
 
