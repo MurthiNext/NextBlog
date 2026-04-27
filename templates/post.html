@@ -88,6 +88,12 @@
     background: var(--bg-card);
     transition: all var(--transition-fast);
 }
+@media (hover: hover) {
+    .snippet-clipboard-content clipboard-copy:hover {
+        border-color: #c5bfb6;
+        box-shadow: var(--shadow-md);
+    }
+}
 {% endif %}
 
 @media (max-width: 600px) {
@@ -107,10 +113,6 @@
         border-color: #c5bfb6;
         box-shadow: var(--shadow-md);
         transform: translateY(-1px);
-    }
-    .snippet-clipboard-content clipboard-copy:hover {
-        border-color: #c5bfb6;
-        box-shadow: var(--shadow-md);
     }
 }
 [data-color-mode="dark"] .title-right .circle:hover {
