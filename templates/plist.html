@@ -47,9 +47,6 @@
     justify-content: center;
     transition: all var(--transition-fast);
 }
-[data-color-mode="dark"] .title-right .circle:hover {
-    border-color: #484f58;
-}
 
 .SideNav {
     min-width: 360px;
@@ -98,6 +95,10 @@
     border: 1px solid var(--border-card);
     background: var(--bg-card);
     transition: all var(--transition-fast);
+}
+.paginate-container .pagination span[aria-disabled="true"] {
+    opacity: 0.4;
+    cursor: default;
 }
 #content > div:first-child {
     color: var(--text-secondary);
@@ -153,6 +154,9 @@
         box-shadow: var(--shadow-md);
         transform: scale(1.08);
         color: var(--text-primary);
+    }
+    [data-color-mode="dark"] .title-right .circle:hover {
+        border-color: #484f58;
     }
     .paginate-container .pagination a:hover {
         border-color: #c5bfb6;
