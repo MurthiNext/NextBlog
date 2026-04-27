@@ -49,7 +49,20 @@
 }
 
 .SideNav {
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
     min-width: 360px;
+}
+
+.SideNav-item:first-child {
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+
+.SideNav-item:last-child {
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+    border-bottom: none;
 }
 .SideNav-icon {
     margin-right: 16px;
@@ -124,6 +137,9 @@
     .LabelTime { display: inline-block; font-size: 11px; }
     .title-right .circle { width: 34px; height: 34px; }
     .SideNav-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
         padding: 12px;
         margin-top: 4px;
         border-radius: var(--radius-sm);
@@ -132,6 +148,16 @@
         border-bottom: none;
     }
     .SideNav { min-width: 0; }
+    .listTitle {
+        white-space: normal;
+        overflow: visible;
+        text-overflow: clip;
+    }
+    .listLabels {
+        width: 100%;
+        flex-wrap: wrap;
+        gap: 4px;
+    }
     .paginate-container .pagination a,
     .paginate-container .pagination span {
         padding: 6px 16px;
@@ -219,7 +245,7 @@
 
 {% block content %}
 <div style="margin-bottom: 16px;">{{ blogBase['subTitle'] }}</div>
-<nav class="SideNav border">
+<nav class="SideNav">
 {% for num in postListJson -%}
 <a class="SideNav-item d-flex flex-items-center flex-justify-between" href="{{ postListJson[num]['postUrl']|e }}">
     <div class="d-flex flex-items-center">
