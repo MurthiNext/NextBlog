@@ -18,9 +18,6 @@
     object-fit: cover;
     border-radius: 50%;
 }
-.avatar:hover {
-    transform: scale(1.1) rotate(8deg);
-}
 .title-left a {
     color: var(--text-primary);
     text-decoration: none;
@@ -50,12 +47,6 @@
     justify-content: center;
     transition: all var(--transition-fast);
 }
-.title-right .circle:hover {
-    border-color: #c5bfb6;
-    box-shadow: var(--shadow-md);
-    transform: scale(1.08);
-    color: var(--text-primary);
-}
 [data-color-mode="dark"] .title-right .circle:hover {
     border-color: #484f58;
 }
@@ -72,12 +63,6 @@
     transition: all var(--transition-fast);
     border-radius: 0;
     animation: fadeInUp 0.4s ease both;
-}
-.SideNav-item:hover {
-    background: var(--bg-card);
-    padding-left: 22px;
-    border-radius: var(--radius-sm);
-    box-shadow: var(--shadow-sm);
 }
 .SideNav-item .Label {
     color: #fff;
@@ -114,12 +99,6 @@
     background: var(--bg-card);
     transition: all var(--transition-fast);
 }
-.paginate-container .pagination a:hover {
-    border-color: #c5bfb6;
-    box-shadow: var(--shadow-md);
-    transform: translateY(-1px);
-}
-
 #content > div:first-child {
     color: var(--text-secondary);
     font-size: 13px;
@@ -151,10 +130,7 @@
         box-shadow: var(--shadow-sm);
         border-bottom: none;
     }
-    .SideNav-item:hover {
-        padding-left: 14px;
-        box-shadow: var(--shadow-sm);
-    }
+    .SideNav { min-width: 0; }
     .paginate-container .pagination a,
     .paginate-container .pagination span {
         padding: 6px 16px;
@@ -163,6 +139,9 @@
 }
 
 @media (hover: hover) {
+    .avatar:hover {
+        transform: scale(1.1) rotate(8deg);
+    }
     .SideNav-item:hover {
         background: var(--bg-card);
         padding-left: 22px;
@@ -174,6 +153,11 @@
         box-shadow: var(--shadow-md);
         transform: scale(1.08);
         color: var(--text-primary);
+    }
+    .paginate-container .pagination a:hover {
+        border-color: #c5bfb6;
+        box-shadow: var(--shadow-md);
+        transform: translateY(-1px);
     }
 }
 @media (hover: none) {
