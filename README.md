@@ -25,7 +25,7 @@
     "i18n": "CN",
     "UTC": 8,
     "urlMode": "issue",
-    "GMEEK_BRANCH": "beta-dev"
+    "GMEEK_BRANCH": "main"
 }
 ```
 
