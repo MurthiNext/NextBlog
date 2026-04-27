@@ -1,70 +1,55 @@
 # NextBlog
 
-基于 [Gmeek](https://github.com/Meekdai/Gmeek) 的博客系统，使用 `GitHub Pages` + `GitHub Issues` + `GitHub Actions` 快速搭建个人博客。
+基于 [Gmeek](https://github.com/Meekdai/Gmeek) 的博客系统 — `GitHub Issues` 写作 + `GitHub Actions` 构建 + `GitHub Pages` 部署。
+此项目由 [MurthiNext](https://github.com/MurthiNext) 维护，某种意义上可视作Gmeek的主题版本。
+
+## 相对于 Gmeek 的改变
+
+**前端重构**
+- CSS 变量驱动的卡片式设计，暖灰色背景 + 白色卡片悬浮窗。
+- 列表区移除外层方框，整体变为圆角卡片容器。
+- 标签改为全圆角药片样式，悬停微动效。
+- 深色/浅色主题完整适配。
+- 页脚版权信息始终固定在页面底部，内容区自动撑满剩余空间。
+- 内置使用 [vercount](https://github.com/EvanNotFound/vercount) 模块。
+
+**更好的移动端适配**
+- 文章标题与标签分为两行显示，标题不再被截断遮挡。
+- 顶部头像与博客名紧凑排列为一行。
 
 ## 快速开始
 
-### 第一步：创建仓库
+### 1. 创建仓库
 
-点击 [**Use this template**](https://github.com/MurthiNext/NextBlog/generate) 按钮，选择 `Create a new repository`，填写仓库名称后创建。
+点击 [**Use this template**](https://github.com/MurthiNext/NextBlog/generate) → `Create a new repository`。
 
-> 仓库名称建议使用 `<username>.github.io` 格式，这样博客地址就是 `https://<username>.github.io`。如果用其他名称，博客地址为 `https://<username>.github.io/<repo-name>`。
+> 仓库名用 `<username>.github.io` 则博客地址为 `https://<username>.github.io`，否则为 `https://<username>.github.io/<repo-name>`。
 
-### 第二步：配置博客
+### 2. 配置博客
 
-1. 进入新仓库，找到 `config.json` 文件
-2. 编辑内容，填入你自己的信息：
+编辑仓库根目录的 `config.json`：
 
 ```json
 {
-    "title": "你的博客名称",
-    "subTitle": "博客副标题/简介",
-    "avatarUrl": "你的头像图片链接",
+    "title": "你的博客名",
+    "subTitle": "副标题",
+    "avatarUrl": "头像链接",
     "email": "your-email@example.com",
     "startSite": "01/01/2025",
     "i18n": "CN",
     "UTC": 8,
-    "urlMode": "issue",
     "GMEEK_BRANCH": "main"
 }
 ```
 
-3. 提交更改。
+### 3. 启用 Pages
 
-### 第三步：设置 GitHub Pages
+仓库 `Settings` → `Pages` → Source 选 `GitHub Actions`。
 
-进入仓库 `Settings` → `Pages`：
-- `Source` 选择 `GitHub Actions`
+### 4. 写文章
 
-### 第四步：写文章
-
-进入仓库 `Issues` 页面，点击 `New issue`：
-- 标题就是文章标题
-- 正文使用 Markdown 格式
-- 右侧 `Labels` 可以给文章打标签分类
-
-提交 Issue 后，GitHub Action 会自动生成博客页面，稍等片刻即可访问。
-
-> 修改 Issue 内容也会自动触发博客更新。
-
-## 配置说明
-
-| 配置项 | 说明 | 默认值 |
-|--------|------|--------|
-| `title` | 博客标题 | 必填 |
-| `subTitle` | 副标题/简介 | 必填 |
-| `avatarUrl` | 头像 URL | 必填 |
-| `email` | 用于 Git 提交记录 | 必填 |
-| `startSite` | 建站日期 (mm/dd/yyyy) | 空 |
-| `i18n` | 语言：`CN`/`EN`/`RU` | `CN` |
-| `UTC` | 时区偏移 | `+8` |
-| `urlMode` | URL 模式：`issue`/`pinyin`/`ru_translit` | `pinyin` |
-| `GMEEK_BRANCH` | NextBlog 模板分支 | `beta-dev` |
-| `onePageListNum` | 每页文章数 | `15` |
-| `needComment` | 是否启用评论 | `1` |
-
-更多配置项请参考 [Gmeek 文档](https://github.com/Meekdai/Gmeek)。
+`Issues` → `New issue`，标题即文章标题，正文用 Markdown，右侧 Labels 打标签。提交后 Action 自动构建发布。
 
 ## License
 
-此项目基于 [Gmeek](https://github.com/Meekdai/Gmeek)，使用 [MIT License](LICENSE)。请保留页面底部和 console 界面的版权信息。
+基于 [Gmeek](https://github.com/Meekdai/Gmeek)，[MIT License](LICENSE)。请保留页面底部和 console 的版权信息。
