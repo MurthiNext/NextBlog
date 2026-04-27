@@ -91,12 +91,27 @@
 }
 .listLabels {
     white-space: nowrap;
+    display: flex;
 }
 
 .lists .SideNav-item {
     border-bottom: 1px solid var(--border-light);
     padding: 14px 18px;
     transition: all var(--transition-fast);
+}
+
+.SideNav {
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+}
+.SideNav-item:first-child {
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+.SideNav-item:last-child {
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+    border-bottom: none;
 }
 
 @media (max-width: 600px) {
@@ -106,12 +121,25 @@
     .title-right .circle { width: 34px; height: 34px; }
     .SideNav { min-width: 0; }
     .lists .SideNav-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
         padding: 12px;
         margin-top: 4px;
         border-radius: var(--radius-sm);
         background: var(--bg-card);
         box-shadow: var(--shadow-sm);
         border-bottom: none;
+    }
+    .listTitle {
+        white-space: normal;
+        overflow: visible;
+        text-overflow: clip;
+    }
+    .listLabels {
+        width: 100%;
+        flex-wrap: wrap;
+        gap: 4px;
     }
     .subnav-search { width: auto; }
     .subnav-search-input { width: 120px; height: 34px; }
@@ -202,7 +230,6 @@ request.onload=function(){
 
 function showList(labelsCount){
     let SideNav=document.getElementsByClassName("SideNav")[0];
-    SideNav.classList.add("border");
     let taglabel=document.getElementById("taglabel");
 
     jsonData['labelColorDict']["All"]="#000";
