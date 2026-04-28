@@ -97,7 +97,7 @@
 {% endif %}
 
 @media (max-width: 600px) {
-    body { padding: 12px; }
+    body { padding: 16px; margin: 12px auto 24px; border-radius: 14px; min-height: calc(100vh - 36px); }
     .postTitle { font-size: 24px; }
     .title-right .circle { width: 34px; height: 34px; }
 }
@@ -197,9 +197,12 @@ function openComments(){
     script.setAttribute("repo","{{ blogBase['repoName'] }}");
     script.setAttribute("issue-term","title");
     {% if blogBase['themeMode']=='manual' %}
-    if(localStorage.getItem("meek_theme")=="dark"){script.setAttribute("theme","dark-blue");}
-    else if(localStorage.getItem("meek_theme")=="light") {script.setAttribute("theme","github-light");}
-    else{script.setAttribute("theme","preferred-color-scheme");}
+    var storedUtterTheme = localStorage.getItem("meek_theme") || "light";
+    var resolvedUtterTheme = storedUtterTheme === "auto"
+        ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? "dark" : "light")
+        : storedUtterTheme;
+    if(resolvedUtterTheme == "dark") {script.setAttribute("theme","dark-blue");}
+    else {script.setAttribute("theme","github-light");}
     {% else %}
     script.setAttribute("theme","{{ blogBase['nightTheme'] }}");
     {% endif %}

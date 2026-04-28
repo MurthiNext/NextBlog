@@ -101,10 +101,14 @@
 }
 
 .SideNav {
-    background: var(--bg-card);
+    background: rgba(246,242,234,0.7);
     border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-md);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
     overflow: hidden;
+}
+
+[data-color-mode="dark"] .SideNav {
+    background: rgba(255,255,255,0.04);
 }
 .SideNav-item:first-child {
     border-radius: var(--radius-lg) var(--radius-lg) 0 0;
@@ -115,7 +119,7 @@
 }
 
 @media (max-width: 600px) {
-    body { padding: 12px; }
+    body { padding: 16px; margin: 12px auto 24px; border-radius: 14px; min-height: calc(100vh - 36px); }
     .tagTitle { display: none; }
     .LabelTime { display: inline-block; font-size: 11px; }
     .title-right .circle { width: 34px; height: 34px; }
@@ -123,23 +127,37 @@
     .lists .SideNav-item {
         flex-direction: column;
         align-items: flex-start;
+        justify-content: flex-start;
         gap: 6px;
         padding: 12px;
         margin-top: 4px;
         border-radius: var(--radius-sm);
-        background: var(--bg-card);
-        box-shadow: var(--shadow-sm);
+        background: rgba(250,247,240,0.55);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        box-shadow: 0 2px 12px rgba(0,0,0,0.06);
         border-bottom: none;
+    }
+    .lists .SideNav-item > .d-flex {
+        width: 100%;
+    }
+    [data-color-mode="dark"] .lists .SideNav-item {
+        background: rgba(255,255,255,0.03);
+        box-shadow: 0 2px 12px rgba(0,0,0,0.2);
     }
     .listTitle {
         white-space: normal;
         overflow: visible;
         text-overflow: clip;
+        text-align: left;
     }
     .listLabels {
         width: 100%;
         flex-wrap: wrap;
         gap: 4px;
+    }
+    .listLabels .LabelTime {
+        margin-left: auto;
     }
     .subnav-search { width: auto; }
     .subnav-search-input { width: 120px; height: 34px; }
