@@ -49,11 +49,19 @@
 }
 
 .SideNav {
-    background: var(--bg-card);
+    background: rgba(255,255,255,0.65);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.18);
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-md);
     overflow: hidden;
     min-width: 360px;
+}
+
+[data-color-mode="dark"] .SideNav {
+    background: rgba(22,27,34,0.7);
+    border: 1px solid rgba(255,255,255,0.06);
 }
 
 .SideNav-item:first-child {
@@ -148,9 +156,14 @@
         padding: 12px;
         margin-top: 4px;
         border-radius: var(--radius-sm);
-        background: var(--bg-card);
+        background: rgba(255,255,255,0.5);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
         box-shadow: var(--shadow-sm);
         border-bottom: none;
+    }
+    [data-color-mode="dark"] .SideNav-item {
+        background: rgba(22,27,34,0.5);
     }
     .SideNav { min-width: 0; }
     .listTitle {
@@ -162,6 +175,9 @@
         width: 100%;
         flex-wrap: wrap;
         gap: 4px;
+    }
+    .listLabels .LabelTime {
+        margin-left: auto;
     }
     .paginate-container .pagination a,
     .paginate-container .pagination span {

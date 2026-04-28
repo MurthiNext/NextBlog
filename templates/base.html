@@ -10,14 +10,27 @@
     {%- if blogBase['themeMode']=='manual' -%}
     <script>
         let theme = localStorage.getItem("meek_theme") || "light";
-        document.documentElement.setAttribute("data-color-mode", theme);
+        let resolvedTheme = theme === "auto"
+            ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? "dark" : "light")
+            : theme;
+        document.documentElement.setAttribute("data-color-mode", resolvedTheme);
+        document.documentElement.setAttribute("data-user-theme", theme);
     </script>
     {%- endif -%}
     {% block head %}{% endblock %}
 </head>
 <style>
+@font-face {
+    font-family: 'Source Han Sans SC';
+    src: url('{{ blogBase['homeUrl'] }}/fonts/SourceHanSansSC-Normal.otf') format('opentype');
+    font-display: swap;
+    font-weight: normal;
+    font-style: normal;
+}
+
 :root {
     --bg-page: #faf9f7;
+    --bg-gradient-page: linear-gradient(135deg, #f5f7e8, #fefdf9 30%, #f2f6e8 70%, #fefdf9);
     --bg-card: #ffffff;
     --border-card: #e5e0d8;
     --border-light: #f0ece6;
@@ -35,6 +48,7 @@
 
 [data-color-mode="dark"] {
     --bg-page: #0d1117;
+    --bg-gradient-page: linear-gradient(135deg, #1a1a2e, #16213e 50%, #0f3460);
     --bg-card: #161b22;
     --border-card: #30363d;
     --border-light: #21262d;
@@ -53,9 +67,9 @@ body {
     margin: 0 auto;
     padding: 45px;
     font-size: 16px;
-    font-family: sans-serif;
+    font-family: 'Source Han Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
     line-height: 1.25;
-    background: var(--bg-page);
+    background: var(--bg-gradient-page);
     transition: background-color var(--transition-normal), color var(--transition-normal);
     display: flex;
     flex-direction: column;
@@ -109,7 +123,11 @@ let themeSettings={
     "auto": ["auto","sync","","preferred-color-scheme"]
 };
 function changeTheme(mode, icon, color, utheme){
-    document.documentElement.setAttribute("data-color-mode",mode);
+    let resolved = mode === "auto"
+        ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? "dark" : "light")
+        : mode;
+    document.documentElement.setAttribute("data-color-mode", resolved);
+    document.documentElement.setAttribute("data-user-theme", mode);
     document.getElementById("themeSwitch").setAttribute("d",value=IconList[icon]);
     document.getElementById("themeSwitch").parentNode.style.color=color;
     if(utterancesLoad==1){utterancesTheme(utheme);}
@@ -128,6 +146,14 @@ function utterancesTheme(theme){
     iframe.contentWindow.postMessage(message,'https://utteranc.es');
 }
 if(themeSettings[theme]){changeTheme(...themeSettings[theme]);}
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+    var userTheme = document.documentElement.getAttribute("data-user-theme")
+        || localStorage.getItem("meek_theme")
+        || "light";
+    if (userTheme === "auto") {
+        document.documentElement.setAttribute("data-color-mode", e.matches ? "dark" : "light");
+    }
+});
 {%- endif %}
 console.log("\n %c Gmeek {{ blogBase['GMEEK_VERSION'] }} https://github.com/Meekdai/Gmeek \n","padding:5px 0;background:#02d81d;color:#fff");
 </script>
