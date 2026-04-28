@@ -49,19 +49,20 @@
 }
 
 .SideNav {
-    background: rgba(255,255,255,0.65);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255,255,255,0.18);
+    background: rgba(255,255,255,0.5);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255,255,255,0.2);
     border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-md);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04);
     overflow: hidden;
     min-width: 360px;
 }
 
 [data-color-mode="dark"] .SideNav {
-    background: rgba(22,27,34,0.7);
+    background: rgba(22,27,34,0.55);
     border: 1px solid rgba(255,255,255,0.06);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.3), 0 1px 4px rgba(0,0,0,0.2);
 }
 
 .SideNav-item:first-child {
@@ -156,14 +157,15 @@
         padding: 12px;
         margin-top: 4px;
         border-radius: var(--radius-sm);
-        background: rgba(255,255,255,0.5);
+        background: rgba(255,255,255,0.4);
         backdrop-filter: blur(8px);
         -webkit-backdrop-filter: blur(8px);
-        box-shadow: var(--shadow-sm);
+        box-shadow: 0 2px 12px rgba(0,0,0,0.06);
         border-bottom: none;
     }
     [data-color-mode="dark"] .SideNav-item {
-        background: rgba(22,27,34,0.5);
+        background: rgba(22,27,34,0.4);
+        box-shadow: 0 2px 12px rgba(0,0,0,0.2);
     }
     .SideNav { min-width: 0; }
     .listTitle {
