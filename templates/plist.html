@@ -153,6 +153,7 @@
     .SideNav-item {
         flex-direction: column;
         align-items: flex-start;
+        justify-content: flex-start;
         gap: 6px;
         padding: 12px;
         margin-top: 4px;
@@ -163,6 +164,9 @@
         box-shadow: 0 2px 12px rgba(0,0,0,0.06);
         border-bottom: none;
     }
+    .SideNav-item > .d-flex {
+        width: 100%;
+    }
     [data-color-mode="dark"] .SideNav-item {
         background: rgba(22,27,34,0.4);
         box-shadow: 0 2px 12px rgba(0,0,0,0.2);
@@ -172,6 +176,7 @@
         white-space: normal;
         overflow: visible;
         text-overflow: clip;
+        text-align: left;
     }
     .listLabels {
         width: 100%;
