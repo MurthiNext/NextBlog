@@ -4,12 +4,22 @@
     <meta content="text/html; charset=utf-8" http-equiv="content-type" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="view-transition" content="same-origin">
     {{ blogBase['primerCSS'] }}
     {{ blogBase['allHead'] }}
     <link rel="icon" href="{{ blogBase['faviconUrl'] }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400&display=swap" rel="stylesheet">
+    <!-- 页面过渡降级：在渲染前检查是否需要进入动画 -->
+    <script>
+    (function(){
+        if (!document.startViewTransition && sessionStorage.getItem('navTransition') === 'true') {
+            sessionStorage.removeItem('navTransition');
+            document.documentElement.classList.add('page-entering');
+        }
+    })();
+    </script>
     {%- if blogBase['themeMode']=='manual' -%}
     <script>
         let theme = localStorage.getItem("meek_theme") || "light";
@@ -121,6 +131,52 @@ body {
 #footer a {
     color: inherit;
 }
+
+/* ====== MPA View Transition 页面过渡动画 ====== */
+@view-transition {
+    navigation: auto;
+}
+
+/* 旧页面退出动画 */
+::view-transition-old(root) {
+    animation: vtFadeOut 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* 新页面进入动画 */
+::view-transition-new(root) {
+    animation: vtFadeIn 0.4s 0.15s cubic-bezier(0, 0, 0.2, 1) forwards;
+}
+
+@keyframes vtFadeOut {
+    to { opacity: 0; transform: scale(0.985); }
+}
+
+@keyframes vtFadeIn {
+    from { opacity: 0; transform: scale(1.01); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* Header 共享元素过渡 —— 使头像+博客名与文章标题平滑切换 */
+#header {
+    view-transition-name: site-header;
+}
+
+/* 内容区共享元素过渡 */
+#content {
+    view-transition-name: site-content;
+}
+
+/* JS 降级：进入动画的起始隐藏状态 */
+html.page-entering body {
+    opacity: 0;
+    transform: scale(1.01);
+}
+
+html.page-entering.ready body {
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    opacity: 1;
+    transform: scale(1);
+}
 </style>
 {% block style %}{% endblock %}
 
@@ -175,6 +231,23 @@ console.log("\n %c Gmeek {{ blogBase['GMEEK_VERSION'] }} https://github.com/Meek
 </script>
 <script>
 (function(){var s=document.createElement('script');s.src='https://events.vercount.one/js';s.async=true;document.head.appendChild(s);})();
+</script>
+<!-- 页面过渡降级：进入动画触发 -->
+<script>
+(function() {
+    var html = document.documentElement;
+    if (html.classList.contains('page-entering')) {
+        // 等待首帧渲染完成后触发淡入动画
+        requestAnimationFrame(function() {
+            requestAnimationFrame(function() {
+                html.classList.add('ready');
+                setTimeout(function() {
+                    html.classList.remove('page-entering', 'ready');
+                }, 450);
+            });
+        });
+    }
+})();
 </script>
 {% block script %}{% endblock %}
 </html>
