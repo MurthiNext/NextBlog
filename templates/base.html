@@ -161,9 +161,16 @@ body {
     view-transition-name: site-header;
 }
 
-/* 内容区共享元素过渡 */
-#content {
-    view-transition-name: site-content;
+/* 过渡期间遮罩根背景，防止渐变+毛玻璃闪烁 */
+::view-transition-group(root) {
+    background-color: var(--bg-page);
+}
+
+/* 过渡期间关闭毛玻璃，避免 backdrop-filter 快照冲突导致闪烁 */
+::view-transition-old(root),
+::view-transition-new(root) {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
 }
 
 /* JS 降级：进入动画的起始隐藏状态 */
@@ -232,12 +239,14 @@ console.log("\n %c Gmeek {{ blogBase['GMEEK_VERSION'] }} https://github.com/Meek
 <script>
 (function(){var s=document.createElement('script');s.src='https://events.vercount.one/js';s.async=true;document.head.appendChild(s);})();
 </script>
-<!-- 页面过渡降级：进入动画触发 -->
+<!-- 页面过渡降级：非 Chromium 浏览器的全局过渡逻辑 -->
 <script>
 (function() {
+    var supportsVT = document.startViewTransition != null;
     var html = document.documentElement;
+
+    // 进入动画触发
     if (html.classList.contains('page-entering')) {
-        // 等待首帧渲染完成后触发淡入动画
         requestAnimationFrame(function() {
             requestAnimationFrame(function() {
                 html.classList.add('ready');
@@ -247,6 +256,44 @@ console.log("\n %c Gmeek {{ blogBase['GMEEK_VERSION'] }} https://github.com/Meek
             });
         });
     }
+
+    // View Transition API 可用时无需手动拦截
+    if (supportsVT) return;
+
+    // 全局内部链接拦截 —— 覆盖主页→文章、文章→主页、标签页等所有站内导航
+    document.addEventListener('click', function(e) {
+        var link = e.target.closest('a');
+        if (!link) return;
+
+        var href = link.getAttribute('href');
+        if (!href || href.startsWith('javascript:') || href === '#') return;
+
+        // 排除新窗口打开
+        if (link.getAttribute('target') === '_blank') return;
+
+        // 解析相对/绝对 URL
+        var linkURL;
+        try {
+            linkURL = new URL(href, window.location.href);
+        } catch (_) {
+            return; // 无效 URL 不做处理
+        }
+
+        // 仅拦截同源、不同路径的导航（保留同页锚点跳转）
+        if (linkURL.origin !== window.location.origin) return;
+        if (linkURL.pathname === window.location.pathname && linkURL.hash) return;
+        if (linkURL.pathname === window.location.pathname && !linkURL.hash) return;
+
+        // 执行淡出过渡
+        e.preventDefault();
+        sessionStorage.setItem('navTransition', 'true');
+        document.body.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+        document.body.style.opacity = '0';
+        document.body.style.transform = 'scale(0.985)';
+        setTimeout(function() {
+            window.location.href = href;
+        }, 320);
+    });
 })();
 </script>
 {% block script %}{% endblock %}
