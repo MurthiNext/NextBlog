@@ -137,12 +137,12 @@ body {
     navigation: auto;
 }
 
-/* 旧页面退出动画 */
+/* 旧页面退出：全页快照淡出 */
 ::view-transition-old(root) {
     animation: vtFadeOut 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
-/* 新页面进入动画 */
+/* 新页面进入：全页快照淡入 */
 ::view-transition-new(root) {
     animation: vtFadeIn 0.4s 0.15s cubic-bezier(0, 0, 0.2, 1) forwards;
 }
@@ -154,23 +154,6 @@ body {
 @keyframes vtFadeIn {
     from { opacity: 0; transform: scale(1.01); }
     to { opacity: 1; transform: scale(1); }
-}
-
-/* Header 共享元素过渡 —— 使头像+博客名与文章标题平滑切换 */
-#header {
-    view-transition-name: site-header;
-}
-
-/* 过渡期间遮罩根背景，防止渐变+毛玻璃闪烁 */
-::view-transition-group(root) {
-    background-color: var(--bg-page);
-}
-
-/* 过渡期间关闭毛玻璃，避免 backdrop-filter 快照冲突导致闪烁 */
-::view-transition-old(root),
-::view-transition-new(root) {
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
 }
 
 /* JS 降级：进入动画的起始隐藏状态 */
